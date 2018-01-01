@@ -79,6 +79,10 @@ let controller = function(UIctrl){
                 handPositions.get(position)()
                 gameRunning = false
                 clearInterval(gameThread)
+                clearInterval(timerThread)
+                document.getElementById("minutes").innerHTML = '00';
+                document.getElementById("seconds").innerHTML = '00';
+                position = 0
             }
     }
     
@@ -86,7 +90,7 @@ let controller = function(UIctrl){
         handPositions.get(0)()
         gameRunning = true
         gameThread = setInterval(randomHandPosision, 3000);
-        startTimer()
+        timerThread = startTimer()
     }
     
     let startTimer = function()
@@ -94,7 +98,7 @@ let controller = function(UIctrl){
         var minutesLabel = document.getElementById("minutes");
         var secondsLabel = document.getElementById("seconds");
         var totalSeconds = 0;
-        setInterval(setTime, 1000);
+        let timer = setInterval(setTime, 1000);
 
         function setTime() {
           ++totalSeconds;
@@ -110,6 +114,8 @@ let controller = function(UIctrl){
             return valString;
           }
         }
+        
+        return timer
     }
     
     let randomHandPosision = function()
