@@ -22,7 +22,7 @@ let controller = function(UIctrl){
     
     let DOM = UIctrl.getDomStrings()
     let handPositions = new Map();
-    let position = 0;
+    let position = 0, counter = 0, last_n = 0;
     let gameRunning = false
     let gameThread, timerThread;
     
@@ -120,9 +120,25 @@ let controller = function(UIctrl){
     
     let randomHandPosision = function()
     {
-        const n = Math.round(Math.random() * 2)
-        console.log('posision: ', n)
-        changeHandPosition(n)
+        const _n = Math.round(Math.random() * 2)
+        
+        //console.log('posision: ', _n, 'last_n: ', last_n)
+        if(last_n === _n)
+        {
+            counter++
+            //console.log('counter++: ', counter)
+        }
+        else
+        {
+            last_n = _n
+            //console.log('last_n: ', last_n) // gal gerai, bet jei kas cia nenusiresetina, reikia count = 0
+        }
+        
+        if(counter >= 2 && (last_n !== position))
+        {
+            changeHandPosition(_n)
+        }
+        
     }
     
     let changeHandPosition = function(newPosition){
@@ -131,6 +147,7 @@ let controller = function(UIctrl){
             handPositions.get(position)()
             handPositions.get(newPosition)()
             position = newPosition
+            counter = 0;
         }
     }
     
