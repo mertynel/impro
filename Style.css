@@ -4,3 +4,8 @@
 .timer {
     font-size: 34px;
 }
+.vertical-aligne {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}

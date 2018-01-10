@@ -10,7 +10,9 @@ let UIcontroller = function(){
         btnUp: '.btn-up',
         btnMiddle: '.btn-middle',
         btnDown: '.btn-down',
-        hand: '.icon',        
+        hand: '.icon',
+        btnStop_g2: '.btn-game2-stop',
+        btnStart_g2: '.btn-game2-start',
     }
     
     return {
@@ -25,6 +27,7 @@ let controller = function(UIctrl){
     let position = 0, counter = 0, last_n = 0;
     let gameRunning = false
     let gameThread, timerThread;
+    let WordsArray_g2 = ['hjjhb'];
     
     handPositions.set(0, function(){
         // viskas GERAI
@@ -70,7 +73,8 @@ let controller = function(UIctrl){
     
     let setupGame2 = function()
     {
-
+        document.querySelector(DOM.btnStart_g2).addEventListener('click', startGame2)
+        document.querySelector(DOM.btnStop_g2).addEventListener('click', stopGame2)
     }
     
     let stopGame = function(){
@@ -91,6 +95,37 @@ let controller = function(UIctrl){
         gameRunning = true
         gameThread = setInterval(randomHandPosision, 3000);
         timerThread = startTimer()
+    }
+    
+    let startGame2 = function(){
+        const filePath = 'words.txt'
+        
+        jQuery.get(filePath, function(fileData) {
+            WordsArray_g2 = fileData.split(/\r?\n/)
+            
+        });
+    
+    }
+    
+    let stopGame2 = function(){
+        console.log(WordsArray_g2)   
+    }
+    
+    let setNextWord = function(){
+        
+    }
+    
+    let setFirstWord = function(){
+        
+    }
+    
+    
+    let readWordsFromTextFile= function(filePath){
+        let data = []
+        
+
+        
+        return data
     }
     
     let startTimer = function()
